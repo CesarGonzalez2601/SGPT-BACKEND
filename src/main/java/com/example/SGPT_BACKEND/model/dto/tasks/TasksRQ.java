@@ -9,8 +9,6 @@ import java.time.LocalDateTime;
 
 public class TasksRQ {
 
-    private Integer tasks;
-
     private Projects idProjects;
 
     private String name;
@@ -22,14 +20,6 @@ public class TasksRQ {
     private LocalDateTime plannedStartDate;
 
     private LocalDateTime plannedEndDate;
-
-    public Integer getTasks() {
-        return tasks;
-    }
-
-    public void setTasks(Integer tasks) {
-        this.tasks = tasks;
-    }
 
     public Projects getIdProjects() {
         return idProjects;
@@ -80,8 +70,7 @@ public class TasksRQ {
     }
 
 
-    public TasksRQ(Integer tasks, Projects idProjects, String name, Status status, String description, LocalDateTime plannedStartDate, LocalDateTime plannedEndDate) {
-        this.tasks = tasks;
+    public TasksRQ( Projects idProjects, String name, Status status, String description, LocalDateTime plannedStartDate, LocalDateTime plannedEndDate) {
         this.idProjects = idProjects;
         this.name = name;
         this.status = status;

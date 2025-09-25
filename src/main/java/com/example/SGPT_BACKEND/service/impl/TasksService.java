@@ -3,13 +3,19 @@ package com.example.SGPT_BACKEND.service.impl;
 import com.example.SGPT_BACKEND.model.dto.Pagination;
 import com.example.SGPT_BACKEND.model.dto.tasks.TasksRQ;
 import com.example.SGPT_BACKEND.model.dto.tasks.TasksRS;
+import com.example.SGPT_BACKEND.model.entities.Projects;
+import com.example.SGPT_BACKEND.model.entities.Status;
 import com.example.SGPT_BACKEND.model.entities.Tasks;
 import com.example.SGPT_BACKEND.model.mappers.ITasksMapper;
+import com.example.SGPT_BACKEND.repository.IProjectsRepository;
+import com.example.SGPT_BACKEND.repository.IStatusRepository;
 import com.example.SGPT_BACKEND.repository.ITasksRepository;
 import com.example.SGPT_BACKEND.service.interfaces.ITasksService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 
 @Service
@@ -20,14 +26,24 @@ public class TasksService implements ITasksService {
     @Autowired
     public ITasksRepository userRepository;
     @Autowired
-    public ITasksMapper projectsMapper;
+    public ITasksMapper tasksMapper;
+    @Autowired
+    public IProjectsRepository projectsRepository;
+    @Autowired
+    public IStatusRepository statusRepository;
 
     @Override
     public TasksRS save(TasksRQ entity) {
 
-        Tasks projects = projectsMapper.requestToEntity(entity);
-        Tasks tasksSaved = tasksRepository.save(projects);
-        return projectsMapper.entityToResponse(tasksSaved);
+        Tasks tasks = tasksMapper.requestToEntity(entity);
+        Projects projects= projectsRepository.findById(entity.getIdProjects().getIdProject())
+                .orElseThrow(()-> new EntityNotFoundException("No se encontraron datos"));
+        Status status = statusRepository.findById(entity.getStatus().getIdStatus())
+                .orElseThrow(()-> new EntityNotFoundException("No se encontraron datos"));
+        tasks.setIdProjects(projects);
+        tasks.setStatus(status);
+        Tasks tasksSaved = tasksRepository.save(tasks);
+        return tasksMapper.entityToResponse(tasksSaved);
     }
 
     @Override
@@ -35,7 +51,7 @@ public class TasksService implements ITasksService {
 
         Tasks tasks = tasksRepository.findById(integer).
                 orElseThrow(() -> new  EntityNotFoundException("No se encontraron registros"));
-        return projectsMapper.entityToResponse(tasks);
+        return tasksMapper.entityToResponse(tasks);
 
     }
 
@@ -49,13 +65,26 @@ public class TasksService implements ITasksService {
         Tasks projects = tasksRepository.findById(integer).
                 orElseThrow(() -> new  EntityNotFoundException("No se encontraron registros"));
 
-        Tasks projectsUpdated = projectsMapper.update(entity, projects);
+        Tasks projectsUpdated = tasksMapper.update(entity, projects);
 
-        return projectsMapper.entityToResponse(projectsUpdated);
+        return tasksMapper.entityToResponse(projectsUpdated);
     }
 
     @Override
     public TasksRS deleteLogico(Integer integer) {
         return null;
+    }
+
+    @Override
+    public List<TasksRS> getByIdProject(Integer idProject) {
+
+        List<Tasks> tasks = tasksRepository.findAllByIdProjectsIdProject(idProject);
+
+        if (tasks.isEmpty()){
+            throw new EntityNotFoundException("No se encontraron registros");
+        }
+
+        List<TasksRS> tasksRSList = tasksMapper.entityListToResponseList(tasks);
+        return tasksRSList;
     }
 }

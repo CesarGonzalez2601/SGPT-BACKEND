@@ -11,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/tasks")
 public class TasksController {
@@ -31,6 +33,11 @@ public class TasksController {
     @PatchMapping("/{id}")
     public ResponseEntity<TasksRS> update(@Validated @PathVariable Integer id, @Validated @RequestBody TasksRQ tasksRQ) {
         return ResponseEntity.ok(tasksService.update(id,tasksRQ));
+    }
+
+    @GetMapping("/by-project/{idProject}")
+    public ResponseEntity<List<TasksRS>> getByIdProjects(@PathVariable("idProject") Integer idProject) {
+        return ResponseEntity.ok(tasksService.getByIdProject(idProject));
     }
     
 }

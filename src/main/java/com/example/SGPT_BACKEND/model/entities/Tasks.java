@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "Tasks", schema = "gestion")
+@Table(name = "tasks", schema = "gestion")
 public class Tasks {
 
     @Id
@@ -24,7 +24,7 @@ public class Tasks {
     @JoinColumn(name = "id_status")
     private Status status;
 
-    @Column(name = "descrption")
+    @Column(name = "description")
     private String description;
 
     @Column(name = "planned_start_date")

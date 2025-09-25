@@ -8,7 +8,10 @@ import com.example.SGPT_BACKEND.model.entities.Projects;
 import com.example.SGPT_BACKEND.model.entities.Tasks;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public interface ITasksService extends ICrudGenericService<Tasks, Integer, TasksRQ, TasksRS>{
 
+    List<TasksRS> getByIdProject(Integer idProject);
 }
