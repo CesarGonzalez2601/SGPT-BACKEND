@@ -11,6 +11,8 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 @Service
 public class UserService implements IUserService {
@@ -68,5 +70,18 @@ public class UserService implements IUserService {
         }
 
         return usersMapper.entityToResponse(users);
+    }
+
+    @Override
+    public List<UsersRS> getByAll() {
+
+        List<Users> usersList = usersRepository.findAll();
+
+        if (usersList.isEmpty()){
+            throw new EntityNotFoundException("No se encontraron resultados");
+        }
+
+
+        return usersMapper.entityListToResponseList(usersList);
     }
 }

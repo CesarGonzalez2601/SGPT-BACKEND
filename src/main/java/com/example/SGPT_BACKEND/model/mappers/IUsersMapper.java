@@ -21,7 +21,7 @@ public interface IUsersMapper {
 
     UsersRS entityToResponse(Users users);
 
-    List<UsersRS> entityListToResponseList(List<Projects> projectsList);
+    List<UsersRS> entityListToResponseList(List<Users> usersList);
 
     Users requestToEntity(UsersRQ usersRQ);
 

@@ -11,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/users")
 public class UsersController {
@@ -38,5 +40,9 @@ public class UsersController {
         return ResponseEntity.ok(userService.getByLogin(entity));
     }
 
+    @GetMapping("/all")
+    public ResponseEntity<List<UsersRS>> getByAll() {
+        return ResponseEntity.ok(userService.getByAll());
+    }
 
 }
