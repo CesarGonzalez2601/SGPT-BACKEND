@@ -1,53 +1,93 @@
 package com.example.SGPT_BACKEND.model.dto.tasks;
 
 
+import com.example.SGPT_BACKEND.model.entities.Projects;
+import com.example.SGPT_BACKEND.model.entities.Status;
+import jakarta.persistence.*;
+
+import java.time.LocalDateTime;
+
 public class TasksRQ {
 
-    private String userName;
+    private Integer tasks;
 
-    private String email;
+    private Projects idProjects;
 
-    private String password;
+    private String name;
 
-    private Boolean userStatus;
+    private Status status;
 
-    public String getUserName() {
-        return userName;
+    private String description;
+
+    private LocalDateTime plannedStartDate;
+
+    private LocalDateTime plannedEndDate;
+
+    public Integer getTasks() {
+        return tasks;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setTasks(Integer tasks) {
+        this.tasks = tasks;
     }
 
-    public String getEmail() {
-        return email;
+    public Projects getIdProjects() {
+        return idProjects;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setIdProjects(Projects idProjects) {
+        this.idProjects = idProjects;
     }
 
-    public String getPassword() {
-        return password;
+    public String getName() {
+        return name;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public Boolean getUserStatus() {
-        return userStatus;
+    public Status getStatus() {
+        return status;
     }
 
-    public void setUserStatus(Boolean userStatus) {
-        this.userStatus = userStatus;
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
-    public TasksRQ(String userName, String email, String password, Boolean userStatus) {
-        this.userName = userName;
-        this.email = email;
-        this.password = password;
-        this.userStatus = userStatus;
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public LocalDateTime getPlannedStartDate() {
+        return plannedStartDate;
+    }
+
+    public void setPlannedStartDate(LocalDateTime plannedStartDate) {
+        this.plannedStartDate = plannedStartDate;
+    }
+
+    public LocalDateTime getPlannedEndDate() {
+        return plannedEndDate;
+    }
+
+    public void setPlannedEndDate(LocalDateTime plannedEndDate) {
+        this.plannedEndDate = plannedEndDate;
+    }
+
+
+    public TasksRQ(Integer tasks, Projects idProjects, String name, Status status, String description, LocalDateTime plannedStartDate, LocalDateTime plannedEndDate) {
+        this.tasks = tasks;
+        this.idProjects = idProjects;
+        this.name = name;
+        this.status = status;
+        this.description = description;
+        this.plannedStartDate = plannedStartDate;
+        this.plannedEndDate = plannedEndDate;
     }
 
     public TasksRQ() {
