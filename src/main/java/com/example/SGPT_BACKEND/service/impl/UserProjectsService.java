@@ -5,10 +5,12 @@ import com.example.SGPT_BACKEND.model.dto.userprojects.UserProjectsRQ;
 import com.example.SGPT_BACKEND.model.dto.userprojects.UserProjectsRS;
 import com.example.SGPT_BACKEND.model.dto.users.UsersRQ;
 import com.example.SGPT_BACKEND.model.dto.users.UsersRS;
+import com.example.SGPT_BACKEND.model.entities.Roles;
 import com.example.SGPT_BACKEND.model.entities.UserProjects;
 import com.example.SGPT_BACKEND.model.entities.Users;
 import com.example.SGPT_BACKEND.model.mappers.IUserProjectsMapper;
 import com.example.SGPT_BACKEND.model.mappers.IUsersMapper;
+import com.example.SGPT_BACKEND.repository.IRolRepository;
 import com.example.SGPT_BACKEND.repository.IUserProjectsRepository;
 import com.example.SGPT_BACKEND.repository.IUserRepository;
 import com.example.SGPT_BACKEND.service.interfaces.IUserProjetctsService;
@@ -25,10 +27,14 @@ public class UserProjectsService implements IUserProjetctsService {
     public IUserProjectsRepository userProjectsRepository;
     @Autowired
     public IUserProjectsMapper userProjectsMapper;
+    @Autowired
+    public IRolRepository rolRepository;
 
     @Override
     public UserProjectsRS save(UserProjectsRQ entity) {
         UserProjects userProjects = userProjectsMapper.requestToEntity(entity);
+        Roles rol = rolRepository.findById(entity.getIdRole().getIdRole()).orElseThrow(()-> new EntityNotFoundException("No se encontraron registros"));
+        userProjects.setIdRole(rol);
         UserProjects savedUserProjects = userProjectsRepository.save(userProjects);
         return userProjectsMapper.entityToResponse(savedUserProjects);
     }

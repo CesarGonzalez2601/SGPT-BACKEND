@@ -3,11 +3,6 @@ package com.example.SGPT_BACKEND.model.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@ToString
-@Getter
-@Setter
 @Entity
 @Table(name = "roles", schema = "gestion")
 public class Roles {
@@ -20,4 +15,28 @@ public class Roles {
     @Column(name = "role")
     private String role;
 
+    public Integer getIdRole() {
+        return idRole;
+    }
+
+    public void setIdRole(Integer idRole) {
+        this.idRole = idRole;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public Roles(Integer idRole, String role) {
+        this.idRole = idRole;
+        this.role = role;
+    }
+
+    public Roles() {
+    }
+    
 }
