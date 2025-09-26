@@ -3,8 +3,7 @@ package com.example.SGPT_BACKEND.model.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
-@AllArgsConstructor
-@NoArgsConstructor
+
 @ToString
 @Getter
 @Setter
