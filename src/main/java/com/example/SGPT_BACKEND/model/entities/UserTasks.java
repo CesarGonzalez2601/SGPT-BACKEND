@@ -4,12 +4,12 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name = "users_tasks", schema = "asignacion")
+@Table(name = "user_tasks", schema = "gestion")
 public class UserTasks {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_task_id")
+    @Column(name = "id_user_tasks")
     private Integer userTaskId;
 
     @ManyToOne
