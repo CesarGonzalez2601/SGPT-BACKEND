@@ -17,4 +17,6 @@ public interface IUserService extends ICrudGenericService<Users, Integer, UsersR
     UsersRS getByLogin(UsersRQ usersRQ);
 
     List<UsersRS> getByAll();
+
+    List<UsersRS> getByAllByProject(Integer idProject);
 }

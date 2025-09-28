@@ -8,6 +8,7 @@ import com.example.SGPT_BACKEND.model.mappers.IUsersMapper;
 import com.example.SGPT_BACKEND.repository.IUserRepository;
 import com.example.SGPT_BACKEND.service.interfaces.IUserService;
 import jakarta.persistence.EntityNotFoundException;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -83,5 +84,17 @@ public class UserService implements IUserService {
 
 
         return usersMapper.entityListToResponseList(usersList);
+    }
+
+    @Override
+    public List<UsersRS> getByAllByProject(Integer idProject) {
+
+        List<Users> usersList = usersRepository.findAllByProject(idProject);
+
+        if (usersList.isEmpty()){
+            throw new EntityNotFoundException("No se encontraron registros");
+        }
+        return usersMapper.entityListToResponseList(usersList);
+
     }
 }

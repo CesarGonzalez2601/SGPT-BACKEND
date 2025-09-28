@@ -2,6 +2,7 @@ package com.example.SGPT_BACKEND.model.dto.tasks;
 
 import com.example.SGPT_BACKEND.model.entities.Projects;
 import com.example.SGPT_BACKEND.model.entities.Status;
+import com.example.SGPT_BACKEND.model.entities.Users;
 
 import java.time.LocalDateTime;
 
@@ -20,6 +21,8 @@ public class TasksRS {
     private LocalDateTime plannedStartDate;
 
     private LocalDateTime plannedEndDate;
+
+    private Users assigment;
 
     public Integer getTasks() {
         return tasks;
@@ -77,7 +80,15 @@ public class TasksRS {
         this.plannedEndDate = plannedEndDate;
     }
 
-    public TasksRS(Integer tasks, Projects idProjects, String name, Status status, String description, LocalDateTime plannedStartDate, LocalDateTime plannedEndDate) {
+    public Users getAssigment() {
+        return assigment;
+    }
+
+    public void setAssigment(Users assigment) {
+        this.assigment = assigment;
+    }
+
+    public TasksRS(Integer tasks, Projects idProjects, String name, Status status, String description, LocalDateTime plannedStartDate, LocalDateTime plannedEndDate, Users assigment) {
         this.tasks = tasks;
         this.idProjects = idProjects;
         this.name = name;
@@ -85,6 +96,7 @@ public class TasksRS {
         this.description = description;
         this.plannedStartDate = plannedStartDate;
         this.plannedEndDate = plannedEndDate;
+        this.assigment = assigment;
     }
 
     public TasksRS() {

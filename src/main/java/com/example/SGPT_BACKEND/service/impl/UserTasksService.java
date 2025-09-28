@@ -54,6 +54,12 @@ public class UserTasksService implements IUserTasksService {
 
     @Override
     public UserTasksRS deleteLogico(Integer integer) {
+
+        UserTasks userTasks = userTasksRepository.findByIdTaskTasks(integer)
+                .orElseThrow(()-> new EntityNotFoundException("No se encotró esta tarea"));
+
+        userTasksRepository.delete(userTasks);
+
         return null;
     }
 }

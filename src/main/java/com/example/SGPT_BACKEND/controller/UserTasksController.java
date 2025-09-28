@@ -29,5 +29,10 @@ public class UserTasksController {
     public ResponseEntity<UserTasksRS> update(@Validated @PathVariable Integer id, @Validated @RequestBody UserTasksRQ tasksRQ) {
         return ResponseEntity.ok(userTasksService.update(id,tasksRQ));
     }
-    
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<UserTasksRS> delete(@PathVariable("id") Integer id) {
+        return ResponseEntity.ok(userTasksService.deleteLogico(id));
+    }
+
 }

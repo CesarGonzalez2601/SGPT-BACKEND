@@ -45,4 +45,9 @@ public class UsersController {
         return ResponseEntity.ok(userService.getByAll());
     }
 
+    @GetMapping("/project/{idProject}")
+    public ResponseEntity<List<UsersRS>> getByAllByProjectl(@PathVariable("idProject") Integer idProject) {
+        return ResponseEntity.ok(userService.getByAllByProject(idProject));
+    }
+
 }

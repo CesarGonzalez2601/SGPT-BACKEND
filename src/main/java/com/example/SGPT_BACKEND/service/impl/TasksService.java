@@ -3,19 +3,19 @@ package com.example.SGPT_BACKEND.service.impl;
 import com.example.SGPT_BACKEND.model.dto.Pagination;
 import com.example.SGPT_BACKEND.model.dto.tasks.TasksRQ;
 import com.example.SGPT_BACKEND.model.dto.tasks.TasksRS;
-import com.example.SGPT_BACKEND.model.entities.Projects;
-import com.example.SGPT_BACKEND.model.entities.Status;
-import com.example.SGPT_BACKEND.model.entities.Tasks;
+import com.example.SGPT_BACKEND.model.entities.*;
 import com.example.SGPT_BACKEND.model.mappers.ITasksMapper;
 import com.example.SGPT_BACKEND.repository.IProjectsRepository;
 import com.example.SGPT_BACKEND.repository.IStatusRepository;
 import com.example.SGPT_BACKEND.repository.ITasksRepository;
+import com.example.SGPT_BACKEND.repository.IUserTasksRepository;
 import com.example.SGPT_BACKEND.service.interfaces.ITasksService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -31,6 +31,8 @@ public class TasksService implements ITasksService {
     public IProjectsRepository projectsRepository;
     @Autowired
     public IStatusRepository statusRepository;
+    @Autowired
+    public IUserTasksRepository userTasksRepository;
 
     @Override
     public TasksRS save(TasksRQ entity) {
@@ -85,6 +87,18 @@ public class TasksService implements ITasksService {
         }
 
         List<TasksRS> tasksRSList = tasksMapper.entityListToResponseList(tasks);
+
+        for (TasksRS task : tasksRSList) {
+            Users assigned = userTasksRepository
+                    .findByIdTaskTasksAndIdTaskIdProjectsIdProject(task.getTasks(), idProject)
+                    .map(UserTasks::getIdUser)   // objeto User completo
+                    .orElse(null);             // si no hay, null
+
+            task.setAssigment(assigned);
+        }
+
+
+
         return tasksRSList;
     }
 }
