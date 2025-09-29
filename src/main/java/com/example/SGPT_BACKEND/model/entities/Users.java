@@ -1,13 +1,7 @@
 package com.example.SGPT_BACKEND.model.entities;
 
 import jakarta.persistence.*;
-import lombok.*;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@ToString
-@Getter
-@Setter
 @Entity
 @Table(name = "users", schema = "gestion")
 public class Users {
