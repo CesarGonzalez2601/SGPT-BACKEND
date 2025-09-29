@@ -26,6 +26,14 @@ public class Status {
         this.idStatus = idStatus;
     }
 
+    public String getStatusName() {
+        return statusName;
+    }
+
+    public void setStatusName(String statusName) {
+        this.statusName = statusName;
+    }
+
     public String getStatus() {
         return status;
     }
@@ -34,10 +42,10 @@ public class Status {
         this.status = status;
     }
 
-    public Status(Integer idStatus, String status, String statusName) {
+    public Status(Integer idStatus, String statusName, String status) {
         this.idStatus = idStatus;
-        this.status = status;
         this.statusName = statusName;
+        this.status = status;
     }
 
     public Status() {
